@@ -1,20 +1,16 @@
 import { S3Client } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
+import fetch from 'node-fetch';
 
-const twentyFiveMB = 25 * 1024 * 1024;
-export const createString = (size = twentyFiveMB) => {
-  return "x".repeat(size);
-};
+export const main = async (event) => {
 
-export const main = async () => {
-  const str = createString();
-  console.info("created placeholder large file");
-  const buffer = Buffer.from(str, "utf8");
+  const rs_image_url = event.rs_image_url
+  console.info(`To obtain and upload the image from ${rs_image_url}`)
+  const response = await fetch(rs_image_url);
+  const buffer = await response.buffer()
 
   const bucketName = process.env.BUCKET;
-  console.info(`Bucket name: ${bucketName}`)
-  const key = `${Date.now()}.txt`
-  console.info(`Key: ${key}`)
+  const key = `${Date.now()}.jpg`
 
   try {
     const upload = new Upload({
