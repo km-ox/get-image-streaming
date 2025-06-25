@@ -14,7 +14,7 @@ See [TODO](TODO.md)
 - Invoke the Lambda function interactively using a test event such as
 ```json
 {
-  "rs_api_url": "https://example.com/path/to/image.jpg"
+  "rs_image_url": "https://example.com/path/to/image.jpg"
 }
 ```
 
