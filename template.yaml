@@ -3,10 +3,25 @@ Description: streaming image upload to s3
 Transform:
 - AWS::Serverless-2016-10-31
 Resources:
-  helloFromLambdaFunction:
+  TestUploadBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "2920-test-upload"
+  UploadImageConnector:
+    Type: AWS::Serverless::Connector
+    Properties:
+      Source:
+        Id: UploadImage
+      Destination:
+        Type: AWS::S3::Bucket
+        Arn: !Sub ${TestUploadBucket.Arn}
+      Permissions:
+        - Write
+        - Read
+  UploadImage:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: src/handlers/hello-from-lambda.helloFromLambdaHandler
+      Handler: src/handlers/index.main
       Runtime: nodejs20.x
       Architectures:
       - x86_64
@@ -14,6 +29,9 @@ Resources:
       Timeout: 100
       Policies:
       - AWSLambdaBasicExecutionRole
+      Environment:
+        Variables:
+          BUCKET: !Ref TestUploadBucket
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
     Properties:
