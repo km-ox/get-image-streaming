@@ -1,0 +1,3 @@
+- Introduce further code to mimic the approach (used elsewhere) to retrieve (and copy) multiple images in parallel, given a list of URLs
+- Simulate better to try and reproduce any operational issues for a streaming approach to copy images
+- Currently, filenames (i.e. keys) are derived from the instant of time when the file is copied to S3
