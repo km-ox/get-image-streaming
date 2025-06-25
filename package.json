@@ -1,6 +1,6 @@
 {
-    "name": "replaced-by-user-input",
-    "description": "replaced-by-user-input",
+    "name": "get-image-streaming",
+    "description": "retrieve and upload images to s3",
     "version": "0.0.1",
     "private": true,
     "devDependencies": {
